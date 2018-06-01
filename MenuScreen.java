@@ -7,14 +7,14 @@ public class MenuScreen {
 		drawMenu();
 	}
 	
-	boolean validInput = true;
-	boolean maxPlayerCap = false;
-	boolean minPlayerCap = false;
+	private boolean validInput = true;
+	private boolean maxPlayerCap = false;
+	private boolean minPlayerCap = false;
 		
-	int minPlayers = 1;
-	int maxPlayers = 4;
+	private final int minPlayers = 1;		//minimum number of players
+	private final int maxPlayers = 4;		//maximum number of players
 	
-	int playerNr = minPlayers;
+	private int playerNr = minPlayers; 		//number of players
 	
 
 	void drawMenu() {	//Draws the menu
@@ -32,20 +32,20 @@ public class MenuScreen {
 		//This runs if the player tries to increase the player number after the max cap was reached
 		if(maxPlayerCap){
 			System.out.printf("+                                                         +\n");
-			System.out.printf("+              MAXIMUM NR OF PLAYERS IS %d!               +\n", maxPlayers);
+			System.out.printf("+              MAXIMUM NR OF PLAYERS IS %d!                +\n", maxPlayers);
 		}
 		//This runs if the player tries to decrease the player number after the min cap was reached
 		if(minPlayerCap){
 			System.out.printf("+                                                         +\n");
-			System.out.printf("+              MINIMUM NR OF PLAYERS IS %d!               +\n", minPlayers);
+			System.out.printf("+              MINIMUM NR OF PLAYERS IS %d!                +\n", minPlayers);
 		}
 		
 		System.out.printf("+                                                         +\n");
 		System.out.printf("+                    To start: press 's'                  +\n");
-		System.out.printf("+                  (Number of Players: %d)                +\n", playerNr);
+		System.out.printf("+                  (Number of Players: %d)                 +\n", playerNr);
 		System.out.printf("+                                                         +\n");
-		System.out.printf("+    To increase number of players: press '+' (Max. %d)   +\n", maxPlayers);
-		System.out.printf("+    To decrease number of players: press '-' (Min. %d)   +\n", minPlayers);
+		System.out.printf("+    To increase number of players: press '+' (Max. %d)    +\n", maxPlayers);
+		System.out.printf("+    To decrease number of players: press '-' (Min. %d)    +\n", minPlayers);
 		System.out.printf("+                                                         +\n");
 		System.out.printf("+                    To Quit: Press 'q'                   +\n");
 		System.out.printf("+                                                         +\n");
@@ -85,7 +85,7 @@ public class MenuScreen {
 	}
 	
 	void startGame() {
-		System.out.println("We Start");
+		//System.out.println("We Start");
 	}
 	
 	void increasePlayerNr() {
@@ -121,5 +121,9 @@ public class MenuScreen {
 		maxPlayerCap = false;
 		minPlayerCap = false;
 		validInput = true;
+	}
+	
+	int getNumberOfPlayers() {
+		return playerNr;
 	}
 }

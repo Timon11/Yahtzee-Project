@@ -12,12 +12,16 @@ public class MainGame {
 	
 	public static void main(String [] args) {
 		MenuScreen menuScreen = new MenuScreen();
-		Dice[] diceArray = new Dice[5];
+		Board gameBoard = new Board(menuScreen.getNumberOfPlayers());
+		
+		Dice[] diceArray = new Dice[5];		//creates an array of 5 dice
 					
 		for(int r = 0; r < diceArray.length; r++) {
-			diceArray[r] = new Dice();
-			System.out.println(diceArray[r].getValue());
+			diceArray[r] = new Dice();		//fills the dice array
+			//System.out.println(diceArray[r].getValue());
 		}
+		
+		
 	}
 	
 	static void countScores() {
