@@ -6,22 +6,29 @@ public class GamePlayer {
 	int myNumber;
 	Scanner input = new Scanner(System.in);
 	Dice[] diceArray = new Dice[5];		//creates an array of 5 dice
-	int rerollTries;
+	private int rerollTries;
 	
 	private int aces;
-	int twos;
-	int threes;
-	int fours;
-	int fives;
-	int sixes;
+	private int twos;
+	private int threes;
+	private int fours;
+	private int fives;
+	private int sixes;
 	
-	int threeOfAKind;
-	int fourOfAKind;
-	int fullHouse;
-	int smStraight;
-	int lnStraight;
-	int yahtzee;
-	int chance;
+	private int threeOfAKind;
+	private int fourOfAKind;
+	private int fullHouse;
+	private int smStraight;
+	private int lnStraight;
+	private int yahtzee;
+	private int chance;
+	
+	private boolean scoredAces;
+	private boolean scoredTwos;
+	private boolean scoredThrees;
+	private boolean scoredFours;
+	private boolean scoredFives;
+	private boolean scoredSixes;
 	
 	GamePlayer(int myNumber){
 		this.myNumber = myNumber;
@@ -142,58 +149,34 @@ public class GamePlayer {
 
 		System.out.println("Type the number (1 - 13) of the option you want to score.");
 
+		
 		switch (input.nextLine()) {
     		case "1":
-    			if(true/*scored ones*/) {
-        			System.out.println("Score the aces");
-        			setPlayerScores(1, countUpAllDice()); 
-
-    			}else {
-    				System.out.println("You dont have any ones, do you want to score 0 instead? (Y/N)");
-        			switch (input.nextLine()) {
-		        		case "Y":
-		        			setPlayerScores(1, 0); 	//Score 0
-		        			break;
-		        		case "y":
-		        			setPlayerScores(1, 0);	//Score 0
-		        			break;
-		        		case "n":
-		        			showDiceRolls();            	//Restart Scoring
-		        			break;
-		        		case "N":
-		        			showDiceRolls();            	//Restart Scoring
-		        			break;
-        				}
-    				}
+    			scoreNumbers(1, "ones");
     			break;
     		case "2":
-    			System.out.println("Score the twos");
-    			setPlayerScores(2, countUpAllDice()); 
+    			scoreNumbers(2, "twos");
     			break;
     		case "3":
-    			System.out.println("Score the threes");
-    			setPlayerScores(3, countUpAllDice()); 
+    			scoreNumbers(3, "threes");
     			break;
     		case "4":
-    			System.out.println("Score the fours");
-    			setPlayerScores(4, countUpAllDice()); 
+    			scoreNumbers(4, "fours");
     			break;
     		case "5":
-    			System.out.println("Score the fives");
-    			setPlayerScores(5, countUpAllDice()); 
+    			scoreNumbers(5, "fives");
     			break;
     		case "6":
-    			System.out.println("Score the sixes");
-    			setPlayerScores(6, countUpAllDice()); 
+    			scoreNumbers(6, "sixes");
     			break;
     			
     		case "7":
     			System.out.println("Score the 3 of a kind");
-    			setPlayerScores(7, countUpAllDice()); 
+    	//		setPlayerScores(7, countUpAllDice()); 
     			break;
     		case "8":
     			System.out.println("Score the 4 of a kind");
-    			setPlayerScores(8, countUpAllDice()); 
+    	//		setPlayerScores(8, countUpAllDice()); 
     			break;
     		case "9":
     			System.out.println("Score the Full House");
@@ -230,7 +213,11 @@ public class GamePlayer {
     			
     		case "13":
     			System.out.println("Score the Chance");
-    			setPlayerScores(13, countUpAllDice()); 
+    			int myScore = 0;
+    			for(int r = 0; r < diceArray.length; r++) {
+    				myScore += diceArray[r].getValue();
+    			}
+    			setPlayerScores(13, myScore); 
     			break;
     		default: //invalid input
 	    		System.out.println("Please enter a valid input");
@@ -239,18 +226,53 @@ public class GamePlayer {
 		}
 	}
 	
+	boolean arrayContains(int target) {
+		if(		diceArray[0].getValue() == target || 
+				diceArray[1].getValue() == target || 
+				diceArray[2].getValue() == target || 
+				diceArray[3].getValue() == target || 
+				diceArray[4].getValue() == target) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	void scoreNumbers(int target, String numberName) {
+		int myScore = 0;
+
+		if(arrayContains(target)) {
+			System.out.println("Score the " + numberName);
+			
+			for(int r = 0; r < diceArray.length; r++) {
+				if(diceArray[r].getValue() == target) {
+    				myScore += diceArray[r].getValue();
+				}
+			}
+			setPlayerScores(target, myScore); 
+
+		}else {
+			System.out.println("You dont have any "+ numberName + ", do you want to score 0 instead? (Y/N)");
+			switch (input.nextLine()) {
+        		case "Y":
+        			setPlayerScores(1, 0); 	//Score 0
+        			break;
+        		case "y":
+        			setPlayerScores(1, 0);	//Score 0
+        			break;
+        		case "n":
+        			showDiceRolls();        //Restart Scoring
+        			break;
+        		case "N":
+        			showDiceRolls();        //Restart Scoring
+        			break;
+			}
+		}
+	}
+	
 	void selectScore() {
 		System.out.println("");
 		System.out.println("Select where you would like your scores to be entered");
-	}
-	
-	private int countUpAllDice() {
-		int myScore = 0;
-
-		for(int r = 0; r < diceArray.length; r++) {
-			myScore += diceArray[r].getValue();
-		}
-		return myScore;
 	}
 	
 	void playTurn() {
