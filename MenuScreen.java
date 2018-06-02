@@ -6,7 +6,7 @@ public class MenuScreen {
 	MenuScreen(){
 		drawMenu();
 	}
-	
+	TurnCounter turnCounter;
 	private boolean validInput = true;
 	private boolean maxPlayerCap = false;
 	private boolean minPlayerCap = false;
@@ -84,7 +84,8 @@ public class MenuScreen {
 	    }
 	}
 	
-	void startGame() {
+	void startGame() { //TODO: Change to actually include more players
+		TurnCounter turnCounter = new TurnCounter(1);//playerNr);
 		//System.out.println("We Start");
 	}
 	

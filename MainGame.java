@@ -3,6 +3,9 @@ package game;
 import java.util.ArrayList;
 
 public class MainGame {
+	
+	int currentPlayer = 1;
+	
 	int ONES;
 	int TWOS;
 	int THREES;
@@ -12,7 +15,9 @@ public class MainGame {
 	
 	public static void main(String [] args) {
 		MenuScreen menuScreen = new MenuScreen();
-		Board gameBoard = new Board(menuScreen.getNumberOfPlayers());
+	//	Board gameBoard = new Board(menuScreen.getNumberOfPlayers());
+		
+		
 		
 		Dice[] diceArray = new Dice[5];		//creates an array of 5 dice
 					
@@ -23,7 +28,7 @@ public class MainGame {
 		
 		
 	}
-	
+		
 	static void countScores() {
 		int ONES;
 		int TWOS;

@@ -14,8 +14,8 @@ public class Board {
 	void drawBoard(int playerNr) {
 
 		System.out.printf("+-------------------------------");
-		drawToPlayerNr(playerNr, "--------+");
-		System.out.println("");
+		drawToPlayerNr((playerNr-1), "---------");
+		System.out.println("--------+");
 		
 		System.out.printf("| YAHTZEE - SCORES              ");
 		drawToPlayerNr((playerNr -1), "         ");
