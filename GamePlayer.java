@@ -8,6 +8,8 @@ public class GamePlayer {
 	Dice[] diceArray = new Dice[5];		//creates an array of 5 dice
 	private int rerollTries;
 	
+	private boolean finishedRolling;
+	
 	private int aces;
 	private int twos;
 	private int threes;
@@ -23,12 +25,20 @@ public class GamePlayer {
 	private int yahtzee;
 	private int chance;
 	
-	private boolean scoredAces;
-	private boolean scoredTwos;
-	private boolean scoredThrees;
-	private boolean scoredFours;
-	private boolean scoredFives;
-	private boolean scoredSixes;
+	private boolean scoredAces = false;
+	private boolean scoredTwos = false;
+	private boolean scoredThrees = false;
+	private boolean scoredFours = false;
+	private boolean scoredFives = false;
+	private boolean scoredSixes = false;
+	
+	private boolean scoredThreeOfAKind = false;
+	private boolean scoredFourOfAKind = false;
+	private boolean scoredFullHouse = false;
+	private boolean scoredSmStraight = false;
+	private boolean scoredLnStraight = false;
+	private boolean scoredYahtzee = false;
+	private boolean scoredChance = false;
 	
 	GamePlayer(int myNumber){
 		this.myNumber = myNumber;
@@ -45,6 +55,7 @@ public class GamePlayer {
 	
 	
 	void startTurn() {
+		finishedRolling = false;
 		System.out.println("Type 'r' to roll the dice.");
 		if(input.nextLine().equals("r")) {
 			rollAllDice();
@@ -66,7 +77,7 @@ public class GamePlayer {
 		for(int r = 0; r < diceArray.length; r++) {
 			System.out.println("Dice "+ (r + 1) + ": " + diceArray[r].getValue());
 		}
-		if(rerollTries < 2) {
+		if(rerollTries < 2 && finishedRolling == false) {
 			selectDice();
 		}else {
 			checkForScore();
@@ -78,6 +89,7 @@ public class GamePlayer {
 		System.out.println("If none type '0'");
 		String rerollThese = input.nextLine();
 		if(rerollThese.equals("0")) {
+			finishedRolling = true;
 			checkForScore();
 		}else if((rerollThese.contains("1")) || (rerollThese.contains("2")) || (rerollThese.contains("3")) || (rerollThese.contains("4")) || (rerollThese.contains("5"))){
 			rerollTries++;
@@ -152,22 +164,46 @@ public class GamePlayer {
 		
 		switch (input.nextLine()) {
     		case "1":
-    			scoreNumbers(1, "ones");
+    			if(scoredAces == false) {
+        			scoreNumbers(1, "aces");
+    			}else {
+    				cantScoreAgain("aces");
+    			}
     			break;
     		case "2":
-    			scoreNumbers(2, "twos");
+    			if(scoredTwos == false) {
+        			scoreNumbers(2, "twos");
+    			}else {
+    				cantScoreAgain("twos");
+    			}
     			break;
     		case "3":
-    			scoreNumbers(3, "threes");
+    			if(scoredThrees == false) {
+        			scoreNumbers(3, "threes");
+    			}else {
+    				cantScoreAgain("threes");
+    			}
     			break;
     		case "4":
-    			scoreNumbers(4, "fours");
+    			if(scoredFours == false) {
+        			scoreNumbers(4, "fours");
+    			}else {
+    				cantScoreAgain("fours");
+    			}
     			break;
     		case "5":
-    			scoreNumbers(5, "fives");
+    			if(scoredFives == false) {
+        			scoreNumbers(5, "fives");
+    			}else {
+    				cantScoreAgain("fives");
+    			}
     			break;
     		case "6":
-    			scoreNumbers(6, "sixes");
+    			if(scoredSixes == false) {
+        			scoreNumbers(6, "sixes");
+    			}else {
+    				cantScoreAgain("sixes");
+    			}
     			break;
     			
     		case "7":
@@ -226,6 +262,11 @@ public class GamePlayer {
 		}
 	}
 	
+	void cantScoreAgain(String scoreName) {
+		System.out.println("You have already scored " + scoreName + ", you can't do it again.");
+		showDiceRolls(); 
+	}
+	
 	boolean arrayContains(int target) {
 		if(		diceArray[0].getValue() == target || 
 				diceArray[1].getValue() == target || 
@@ -242,7 +283,6 @@ public class GamePlayer {
 		int myScore = 0;
 
 		if(arrayContains(target)) {
-			System.out.println("Score the " + numberName);
 			
 			for(int r = 0; r < diceArray.length; r++) {
 				if(diceArray[r].getValue() == target) {
@@ -250,6 +290,7 @@ public class GamePlayer {
 				}
 			}
 			setPlayerScores(target, myScore); 
+			System.out.println("You score the " + numberName + " for " + myScore + " points.");
 
 		}else {
 			System.out.println("You dont have any "+ numberName + ", do you want to score 0 instead? (Y/N)");
@@ -286,32 +327,41 @@ public class GamePlayer {
 		switch (scoreNr) {
 		case 1:
 			aces = scoreTotal;
+			scoredAces = true;
 			break;
 		case 2:
 			twos = scoreTotal;
+			scoredTwos = true;
 			break;
 		case 3:
 			threes = scoreTotal;
+			scoredThrees = true;
 			break;
 		case 4:
 			fours = scoreTotal;
+			scoredFours = true;
 			break;
 		case 5:
 			fives = scoreTotal;
+			scoredFives = true;
 			break;
 		case 6:
 			sixes = scoreTotal;
+			scoredSixes = true;
 			break;
 			
 		case 7:
 			threeOfAKind = scoreTotal;
+			scoredThreeOfAKind = true;
 			break;
 		case 8:
 			fourOfAKind = scoreTotal;
+			scoredFourOfAKind = true;
 			break;
 		
 		case 13:
 			chance = scoreTotal;
+			scoredChance = true;
 			break;
 		}	
 	}
@@ -323,6 +373,7 @@ public class GamePlayer {
 			}else {
 				fullHouse = 0;
 			}
+			scoredFullHouse = true;
 			break;
 		case 10:
 			if(score == true) {
@@ -330,6 +381,7 @@ public class GamePlayer {
 			}else {
 				smStraight = 0;
 			}
+			scoredSmStraight = true;
 			break;
 		case 11:
 			if(score == true) {
@@ -337,6 +389,7 @@ public class GamePlayer {
 			}else {
 				lnStraight = 0;
 			}
+			scoredLnStraight = true;
 			break;
 		case 12:
 			if(score == true) {
@@ -344,6 +397,7 @@ public class GamePlayer {
 			}else {
 				yahtzee = 0;
 			}
+			scoredYahtzee = true;
 			break;
 		}
 	}
