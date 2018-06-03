@@ -21,7 +21,7 @@ public class TurnCounter {
 			//System.out.println(diceArray[r].getValue());
 		}
 		
-		int nrOfRounds = 13;//TODO: Set back to 13
+		int nrOfRounds = 13;//
 		int currentRound = 0;
 		
 		
@@ -35,7 +35,6 @@ public class TurnCounter {
 			currentRound++;
 		}
 		if(currentRound == nrOfRounds) {
-			//TODO: draw final scores
 			gameBoard.calculateFinalScores();
 			gameBoard.drawBoard();
 		}

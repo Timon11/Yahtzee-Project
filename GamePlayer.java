@@ -145,22 +145,6 @@ public class GamePlayer {
 		System.out.println("12. YAHTZEE");
 		System.out.println("13. Chance");
 		System.out.println("");
-		/*
-		 * 1.  Aces
-		 * 2.  Twos
-		 * 3.  Threes
-		 * 4.  Fours
-		 * 5.  Fives
-		 * 6.  Sixes
-		 * 
-		 * 7.  3 of a kind
-		 * 8.  4 of a kind
-		 * 9.  Full House
-		 * 10. Sm. Straight
-		 * 11. Ln. Straight
-		 * 12. YAHTZEE
-		 * 13. Chance
-		 */
 
 		System.out.println("Type the number (1 - 13) of the option you want to score.");
 
@@ -212,7 +196,6 @@ public class GamePlayer {
     		case "7": //Three of a kind
     			System.out.println("Score the 3 of a kind");
     			if(scoredThreeOfAKind == false) {
-    				//TODO: Check if 3 are the same
         			int aces = 0;
         			int twos = 0;
         			int threes = 0;
@@ -241,7 +224,6 @@ public class GamePlayer {
     	    	    			sixes ++;
     	    	    			break;
         				}
-        				//myScore += diceArray[r].getValue();
         			}
         			if (aces > 2 || twos > 2 || threes > 2 || fours > 2 || fives > 2 || sixes > 2) {
         				int myScore = 0;
@@ -256,6 +238,7 @@ public class GamePlayer {
     				cantScoreAgain("three of a kind");
     			}
     			break;
+    			
     		case "8": //Four of a kind
     			System.out.println("Score the 4 of a kind");
     			if(scoredFourOfAKind == false) {
@@ -302,6 +285,7 @@ public class GamePlayer {
     				cantScoreAgain("four of a kind");
     			}
     			break;
+    			
     		case "9": //FullHouse
     			System.out.println("Score the Full House");
     			
@@ -346,6 +330,7 @@ public class GamePlayer {
     				cantScoreAgain("full house");
     			}
     			break;
+    			
     		case "10": //Sm.Straight
     			System.out.println("Score the Sm. Straight");
     			if(scoredSmStraight == false) {
@@ -365,6 +350,7 @@ public class GamePlayer {
     				cantScoreAgain("small straight");
     			}
     			break;
+    			
     		case "11": //Ln.Straight
     			System.out.println("Score the Ln. Straight");
     			
@@ -384,6 +370,7 @@ public class GamePlayer {
     				cantScoreAgain("long straight");
     			}
     			break;
+    			
     		case "12": //Yahtzee
     			System.out.println("Score the YAHTZEE");
     			if(scoredYahtzee == false) {
@@ -578,6 +565,7 @@ public class GamePlayer {
 		}
 		setScoredThisRound(scoreNr);
 	}
+	
 	private void setPlayerScores(int scoreNr, boolean score) {
 		switch(scoreNr) {
 		case 9:
