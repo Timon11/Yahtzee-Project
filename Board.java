@@ -211,4 +211,17 @@ public class Board {
 			
 		}
 	}
+	
+	String turnScoreToString(int myScore) {
+		String scoreString = ("" + myScore);
+		if(scoreString.length() == 1) {
+			return ("  " + myScore);
+		}else if(scoreString.length() == 2){
+			return (" " + myScore);
+		}else if(scoreString.length() == 3) {
+			return ("" + myScore);
+		}else {
+			return "XXX";
+		}
+	}
 }

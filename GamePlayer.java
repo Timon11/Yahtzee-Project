@@ -206,59 +206,204 @@ public class GamePlayer {
     			}
     			break;
     			
-    		case "7":
+    		case "7": //Three of a kind
     			System.out.println("Score the 3 of a kind");
-    	//		setPlayerScores(7, countUpAllDice()); 
+    			if(scoredThreeOfAKind == false) {
+    				//TODO: Check if 3 are the same
+        			int aces = 0;
+        			int twos = 0;
+        			int threes = 0;
+        			int fours = 0;
+        			int fives = 0;
+        			int sixes = 0;
+        			
+        			for(int r = 0; r < diceArray.length; r++) {
+        				switch (diceArray[r].getValue()) {
+    	    	    		case 1:
+    	    	    			aces ++;
+    	    	    			break;
+    	    	    		case 2:
+    	    	    			twos ++;
+    	    	    			break;
+    	    	    		case 3:
+    	    	    			threes ++;
+    	    	    			break;
+    	    	    		case 4:
+    	    	    			fours ++;
+    	    	    			break;
+    	    	    		case 5:
+    	    	    			fives ++;
+    	    	    			break;
+    	    	    		case 6:
+    	    	    			sixes ++;
+    	    	    			break;
+        				}
+        				//myScore += diceArray[r].getValue();
+        			}
+        			if (aces > 2 || twos > 2 || threes > 2 || fours > 2 || fives > 2 || sixes > 2) {
+        				int myScore = 0;
+            			for(int i = 0; i < diceArray.length; i++) {
+            				myScore += diceArray[i].getValue();
+            			}
+            			setPlayerScores(7, myScore); 
+        			}else {
+        				dontHaveTarget(7, "three of a kind"); 
+        			}
+    			}else {
+    				cantScoreAgain("three of a kind");
+    			}
     			break;
-    		case "8":
+    		case "8": //Four of a kind
     			System.out.println("Score the 4 of a kind");
-    	//		setPlayerScores(8, countUpAllDice()); 
+    			if(scoredFourOfAKind == false) {
+    				//Check if 4 are the same
+        			int aces = 0;
+        			int twos = 0;
+        			int threes = 0;
+        			int fours = 0;
+        			int fives = 0;
+        			int sixes = 0;
+        			
+        			for(int r = 0; r < diceArray.length; r++) {
+        				switch (diceArray[r].getValue()) {
+    	    	    		case 1:
+    	    	    			aces ++;
+    	    	    			break;
+    	    	    		case 2:
+    	    	    			twos ++;
+    	    	    			break;
+    	    	    		case 3:
+    	    	    			threes ++;
+    	    	    			break;
+    	    	    		case 4:
+    	    	    			fours ++;
+    	    	    			break;
+    	    	    		case 5:
+    	    	    			fives ++;
+    	    	    			break;
+    	    	    		case 6:
+    	    	    			sixes ++;
+    	    	    			break;
+        				}
+        			}
+        			if (aces > 3 || twos > 3 || threes > 3 || fours > 3 || fives > 3 || sixes > 3) {
+        				int myScore = 0;
+            			for(int i = 0; i < diceArray.length; i++) {
+            				myScore += diceArray[i].getValue();
+            			}
+            			setPlayerScores(8, myScore); 
+        			}else {
+        				dontHaveTarget(8, "four of a kind"); 
+        			}
+    			}else {
+    				cantScoreAgain("four of a kind");
+    			}
     			break;
-    		case "9":
+    		case "9": //FullHouse
     			System.out.println("Score the Full House");
     			break;
-    		case "10":
+    		case "10": //Sm.Straight
     			System.out.println("Score the Sm. Straight");
+    			if(scoredSmStraight == false) {
+    				if(true) {//TODO: if small straight has been scored
+    					setPlayerScores(10, true);
+    				}else {
+    					dontHaveTarget(10, "small straight"); 
+    				}
+    			}else {
+    				cantScoreAgain("small straight");
+    			}
     			break;
-    		case "11":
+    		case "11": //Ln.Straight
     			System.out.println("Score the Ln. Straight");
     			break;
-    		case "12":
-    			if(false/*scored yahtzee*/) {
-        			System.out.println("Score the YAHTZEE");
-        			setPlayerScores(12, true);
-
-    			}else {
-    				System.out.println("You dont have YAHTZEE, do you want to score 0 instead? (Y/N)");
-        			switch (input.nextLine()) {
-		        		case "Y":
-		        			setPlayerScores(12, false); 	//Score 0
-		        			break;
-		        		case "y":
-		        			setPlayerScores(12, false); 	//Score 0
-		        			break;
-		        		case "n":
-		        			showDiceRolls();            	//Restart Scoring
-		        			break;
-		        		case "N":
-		        			showDiceRolls();            	//Restart Scoring
-		        			break;
+    		case "12": //Yahtzee
+    			System.out.println("Score the YAHTZEE");
+    			if(scoredYahtzee == false) {
+    				//Check if 4 are the same
+        			int aces = 0;
+        			int twos = 0;
+        			int threes = 0;
+        			int fours = 0;
+        			int fives = 0;
+        			int sixes = 0;
+        			
+        			for(int r = 0; r < diceArray.length; r++) {
+        				switch (diceArray[r].getValue()) {
+    	    	    		case 1:
+    	    	    			aces ++;
+    	    	    			break;
+    	    	    		case 2:
+    	    	    			twos ++;
+    	    	    			break;
+    	    	    		case 3:
+    	    	    			threes ++;
+    	    	    			break;
+    	    	    		case 4:
+    	    	    			fours ++;
+    	    	    			break;
+    	    	    		case 5:
+    	    	    			fives ++;
+    	    	    			break;
+    	    	    		case 6:
+    	    	    			sixes ++;
+    	    	    			break;
         				}
-    				}
+        			}
+        			if (aces == 5 || twos == 5 || threes == 5 || fours == 5 || fives == 5 || sixes == 5) {
+        				setPlayerScores(12, true); 
+        			}else {
+        				dontHaveTarget(12, "YAHTZEE");        				
+        			}
+    			}else {
+    				cantScoreAgain("YAHTZEE");
+    			}
+    			break;
+			
+    		case "13": //Chance
+    			System.out.println("Score the Chance");
+    			if(scoredChance == false) {
+    				int myScore = 0;
+        			for(int r = 0; r < diceArray.length; r++) {
+        				myScore += diceArray[r].getValue();
+        			}
+        			setPlayerScores(13, myScore); 
+    			}else {
+    				cantScoreAgain("chance");
+    			}
     			break;
     			
-    		case "13":
-    			System.out.println("Score the Chance");
-    			int myScore = 0;
-    			for(int r = 0; r < diceArray.length; r++) {
-    				myScore += diceArray[r].getValue();
-    			}
-    			setPlayerScores(13, myScore); 
-    			break;
     		default: //invalid input
 	    		System.out.println("Please enter a valid input");
 	    		checkForScore();
             	break;
+		}
+	}
+		
+	void dontHaveTarget(int target, String targetName) {
+		
+		System.out.println("You dont have "+ targetName + ", do you want to score 0 instead? (Y/N)");
+		switch (input.nextLine()) {
+    		case "Y":
+    			if(target == 9 || target == 10 || target == 11 || target == 12) {
+    				setPlayerScores(target, false);
+    			}else {
+        			setPlayerScores(target, 0); 	//Score 0
+    			}
+    			break;
+    		case "y":
+    			if(target == 9 || target == 10 || target == 11 || target == 12) {
+    				setPlayerScores(target, false);
+    			}else {
+        			setPlayerScores(target, 0); 	//Score 0
+    			}    			
+    			break;
+    		case "n":
+    			showDiceRolls();        		//Restart Scoring
+    			break;
+    		case "N":
+    			showDiceRolls();        		//Restart Scoring
+    			break;
 		}
 	}
 	
@@ -296,16 +441,16 @@ public class GamePlayer {
 			System.out.println("You dont have any "+ numberName + ", do you want to score 0 instead? (Y/N)");
 			switch (input.nextLine()) {
         		case "Y":
-        			setPlayerScores(1, 0); 	//Score 0
+        			setPlayerScores(target, 0); 	//Score 0
         			break;
         		case "y":
-        			setPlayerScores(1, 0);	//Score 0
+        			setPlayerScores(target, 0);		//Score 0
         			break;
         		case "n":
-        			showDiceRolls();        //Restart Scoring
+        			showDiceRolls();        		//Restart Scoring
         			break;
         		case "N":
-        			showDiceRolls();        //Restart Scoring
+        			showDiceRolls();        		//Restart Scoring
         			break;
 			}
 		}
@@ -401,7 +546,7 @@ public class GamePlayer {
 			break;
 		}
 	}
-	
+		
 	int getPlayerScores(int scoreType) {
 		switch (scoreType) {
 			case 1:
