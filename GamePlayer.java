@@ -9,6 +9,8 @@ public class GamePlayer {
 	private int rerollTries;
 	
 	private boolean finishedRolling;
+	private int scoredThisRound;
+
 	
 	private int aces;
 	private int twos;
@@ -42,7 +44,6 @@ public class GamePlayer {
 	
 	GamePlayer(int myNumber){
 		this.myNumber = myNumber;
-		System.out.printf("Player %d\n", (myNumber + 1));
 		
 		for(int r = 0; r < diceArray.length; r++) {
 			diceArray[r] = new Dice();		//fills the dice array
@@ -55,7 +56,9 @@ public class GamePlayer {
 	
 	
 	void startTurn() {
+		System.out.printf("Player %d\n", (myNumber + 1));
 		finishedRolling = false;
+		scoredThisRound = 0;
 		System.out.println("Type 'r' to roll the dice.");
 		if(input.nextLine().equals("r")) {
 			rollAllDice();
@@ -301,11 +304,59 @@ public class GamePlayer {
     			break;
     		case "9": //FullHouse
     			System.out.println("Score the Full House");
+    			
+    			if(scoredFullHouse == false) {
+    				//Check if 4 are the same
+        			int aces = 0;
+        			int twos = 0;
+        			int threes = 0;
+        			int fours = 0;
+        			int fives = 0;
+        			int sixes = 0;
+        			
+        			for(int r = 0; r < diceArray.length; r++) {
+        				switch (diceArray[r].getValue()) {
+    	    	    		case 1:
+    	    	    			aces ++;
+    	    	    			break;
+    	    	    		case 2:
+    	    	    			twos ++;
+    	    	    			break;
+    	    	    		case 3:
+    	    	    			threes ++;
+    	    	    			break;
+    	    	    		case 4:
+    	    	    			fours ++;
+    	    	    			break;
+    	    	    		case 5:
+    	    	    			fives ++;
+    	    	    			break;
+    	    	    		case 6:
+    	    	    			sixes ++;
+    	    	    			break;
+        				}
+        			}
+        			if ((aces == 3 || twos == 3 || threes == 3 || fours == 3 || fives == 3 || sixes == 3) && 
+        				(aces == 2 || twos == 2 || threes == 2 || fours == 2 || fives == 2 || sixes == 2)) {
+    					setPlayerScores(9, true);
+    				}else {
+    					dontHaveTarget(9, "full house"); 
+    				}
+    			}else {
+    				cantScoreAgain("full house");
+    			}
     			break;
     		case "10": //Sm.Straight
     			System.out.println("Score the Sm. Straight");
     			if(scoredSmStraight == false) {
-    				if(true) {//TODO: if small straight has been scored
+    				String stringScore = "";
+        			for(int r = 0; r < diceArray.length; r++) {
+        				stringScore += ("" + diceArray[r].getValue());
+        			}
+        			//Check for short straight
+    				if((stringScore.contains("1") && stringScore.contains("2") && stringScore.contains("3") && stringScore.contains("4"))||
+    	        	   (stringScore.contains("2") && stringScore.contains("3") && stringScore.contains("4") && stringScore.contains("5"))||
+    	        	   (stringScore.contains("3") && stringScore.contains("4") && stringScore.contains("5") && stringScore.contains("6"))) {
     					setPlayerScores(10, true);
     				}else {
     					dontHaveTarget(10, "small straight"); 
@@ -316,6 +367,22 @@ public class GamePlayer {
     			break;
     		case "11": //Ln.Straight
     			System.out.println("Score the Ln. Straight");
+    			
+    			if(scoredLnStraight == false) {
+    				String stringScore = "";
+        			for(int r = 0; r < diceArray.length; r++) {
+        				stringScore += ("" + diceArray[r].getValue());
+        			}
+        			//Check for long straight
+        			if((stringScore.contains("1") && stringScore.contains("2") && stringScore.contains("3") && stringScore.contains("4") && stringScore.contains("5")) ||
+        			   (stringScore.contains("6") && stringScore.contains("2") && stringScore.contains("3") && stringScore.contains("4") && stringScore.contains("5"))) {
+    					setPlayerScores(11, true);
+    				}else {
+    					dontHaveTarget(11, "long straight"); 
+    				}
+    			}else {
+    				cantScoreAgain("long straight");
+    			}
     			break;
     		case "12": //Yahtzee
     			System.out.println("Score the YAHTZEE");
@@ -508,7 +575,8 @@ public class GamePlayer {
 			chance = scoreTotal;
 			scoredChance = true;
 			break;
-		}	
+		}
+		setScoredThisRound(scoreNr);
 	}
 	private void setPlayerScores(int scoreNr, boolean score) {
 		switch(scoreNr) {
@@ -545,9 +613,19 @@ public class GamePlayer {
 			scoredYahtzee = true;
 			break;
 		}
+		setScoredThisRound(scoreNr);
 	}
-		
-	int getPlayerScores(int scoreType) {
+	
+	
+	void setScoredThisRound(int whatDidIScore) {
+		scoredThisRound = whatDidIScore;
+	}
+	
+	public int getScoredThisRound() {
+		return scoredThisRound;
+	}
+	
+	public int getPlayerScores(int scoreType) {
 		switch (scoreType) {
 			case 1:
 				return aces;

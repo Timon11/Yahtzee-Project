@@ -84,9 +84,8 @@ public class MenuScreen {
 	    }
 	}
 	
-	void startGame() { //TODO: Change to actually include more players
-		TurnCounter turnCounter = new TurnCounter(1);//playerNr);
-		//System.out.println("We Start");
+	void startGame() { 
+		TurnCounter turnCounter = new TurnCounter(playerNr);
 	}
 	
 	void increasePlayerNr() {
